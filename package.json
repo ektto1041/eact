@@ -1,13 +1,13 @@
 {
-  "name": "eact",
+  "name": "epger",
   "version": "0.0.1",
-  "description": "Easy react",
+  "description": "Easy PackaGER ",
   "bin": {
-    "eact": "./bin/eact.js"
+    "eact": "./bin/epger.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ektto1041/eact.git"
+    "url": "https://github.com/ektto1041/epger.git"
   },
   "keywords": [
     "react"
@@ -18,7 +18,7 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ektto1041/eact/issues"
+    "url": "https://github.com/ektto1041/epger/issues"
   },
-  "homepage": "https://github.com/ektto1041/eact#readme"
+  "homepage": "https://github.com/ektto1041/epger#readme"
 }
