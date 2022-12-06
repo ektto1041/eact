@@ -31,6 +31,7 @@ for(const arg of args) {
      */
     const [filename, extension] = arg.split('.');
     const template = getTemplate(extension);
+    console.log(template);
     const hasParams = arg[0] === '@';
 
     if(hasParams && template) {
@@ -41,7 +42,9 @@ for(const arg of args) {
       // No parameters need.
       // Only one parameter exists. - $0: filename(without extension)
       if(template) {
-
+        // Convert all $0 to filename.
+        const content = template.replace(new RegExp(/\$0/, "g"), filename);
+        qPush(c.CREATE_TEMPLATE_FILE, directoryQueue.join('/'), filename, extension, content);
       } else {
         // If there is no template in EPGER,
         // EPGER will create "Empty File" that don't need parameter
