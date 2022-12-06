@@ -5,6 +5,9 @@
   "bin": {
     "epger": "./bin/epger.js"
   },
+  "scripts": {
+    "epger": "node ./bin/epger.js"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/ektto1041/epger.git"

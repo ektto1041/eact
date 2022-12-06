@@ -43,6 +43,7 @@ for(const arg of args) {
       }
 
       qPush(c.CREATE_TEMPLATE_FILE, directoryQueue.join('/'), workingFile.filename, workingFile.extension, workingFile.template);
+      isParams = false;
 
       continue;
     }
