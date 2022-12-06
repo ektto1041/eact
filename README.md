@@ -19,7 +19,9 @@ npx epger /newDirectory MyComponent.jsx
 // Created File
 // ./newDirectory/MyComponent.jsx
 import React from 'react';
+
 const MyComponent = () => {};
+
 export default MyComponent;
 ```
 ### More complex examples…
