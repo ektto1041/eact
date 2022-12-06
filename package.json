@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Easy PackaGER ",
   "bin": {
-    "eact": "./bin/epger.js"
+    "epger": "./bin/epger.js"
   },
   "repository": {
     "type": "git",
