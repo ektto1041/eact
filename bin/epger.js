@@ -1,17 +1,18 @@
 #! /usr/bin/env node
 const fs = require('fs');
-const {qPush, qExec, c, getTemplate} = require('./fileHandler.js');
+const {getCurrentPath, qPush, qExec, c, getTemplate} = require('./fileHandler.js');
 
 console.log('');
-console.log('#======================#');
-console.log('# EPGER: Hello, World! #');
-console.log('#======================#');
+console.log('#=============================#');
+console.log('# EPGER: Hello, World!        #');
+console.log('# by Sangyeon Park, ektto1041 #');
+console.log('# since 06/12/2022            #');
+console.log('#=============================#');
 console.log('');
 
 const args = process.argv.slice(2);
-console.log(args);
 
-const directoryQueue = ['.'];
+const directoryQueue = getCurrentPath().split('/');
 
 let isParams = false;
 const workingFile = {
@@ -30,6 +31,7 @@ const workingFile = {
     this.init();
   },
 };
+
 for(const arg of args) {
   if(isParams) {
     // After type "@*",

@@ -1,6 +1,14 @@
 const fs = require('fs');
 const TEMPLATES = require('./templates.js');
 
+/**
+ * Get the current location where the epger was executed
+ * @returns current real path
+ */
+const getCurrentPath = () => {
+  return fs.realpathSync('./');
+}
+
 const createDir = ([path, ]) => {
   // TODO Exception
   if(fs.existsSync(path)) return;
@@ -57,6 +65,7 @@ const qExec = () => {
 };
 
 module.exports = {
+  getCurrentPath,
   qPush,
   qExec,
   c,
