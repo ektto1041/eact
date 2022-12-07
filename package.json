@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/ektto1041/epger/issues"
   },
-  "homepage": "https://github.com/ektto1041/epger#readme"
+  "homepage": "https://github.com/ektto1041/epger#readme",
+  "dependencies": {
+    "commander": "^9.4.1"
+  }
 }
