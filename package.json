@@ -25,6 +25,8 @@
   },
   "homepage": "https://github.com/ektto1041/epger#readme",
   "dependencies": {
-    "commander": "^9.4.1"
+    "chalk": "^4.1.2",
+    "commander": "^9.4.1",
+    "readline-sync": "^1.4.10"
   }
 }
