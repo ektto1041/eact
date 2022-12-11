@@ -22,4 +22,22 @@ module.exports = {
     const input = rl.question('', );
     return input;
   },
+  createDirectory: (path) => {
+    console.log(`#   creating directory   : ${chalk.greenBright(path)}`);
+  },
+  createEmptyFile: (path) => {
+    console.log(`#   creating empty file  : ${chalk.greenBright(path)}`);
+  },
+  createTemplateFile: (extension, path) => {
+    console.log(`#   creating ${extension} file   : ${chalk.greenBright(path)}`);
+  },
+  success: () => {
+    console.log();
+    console.log('#===========================================#');
+    console.log('#                                           #');
+    console.log(`#   ${chalk.blueBright('Your package is created successfully!')}   #`);
+    console.log('#                                           #');
+    console.log('#===========================================#');
+    console.log();
+  }
 }

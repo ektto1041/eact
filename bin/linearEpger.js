@@ -55,7 +55,7 @@ const linearEpger = (args) => {
     } else if(arg === '..') {
       // If you type '..' only,
       // Move to the parent directory.
-      if(directoryQueue.length === 1) continue; // But if the current location is './', the command is ignored.
+      if(directoryQueue.length === 3) continue; // But if the current location is './', the command is ignored.
       directoryQueue.pop();
     } else {
       /**
@@ -88,7 +88,7 @@ const linearEpger = (args) => {
     }
   }
 
-  qExec();
+  qExec(true);
 };
 
 module.exports = { linearEpger };

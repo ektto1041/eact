@@ -1,4 +1,7 @@
+const cp = require('child_process');
 const fs = require('fs');
+const { dirname } = require('path');
+const printer = require('./printer.js');
 const TEMPLATES = require('./templates.js');
 
 /**
@@ -9,27 +12,41 @@ const getCurrentPath = () => {
   return fs.realpathSync('./');
 }
 
-const createDir = ([path, ]) => {
+const getUserRootPath = () => {
+  return __dirname.split('/').filter((dir, i) => i < 3).join('/');
+}
+
+const getTranscationPath = (p) => {
+  return `${__dirname}/_transaction${p}`;
+}
+
+const createDir = (isTransaction, [p, ]) => {
+  const path = isTransaction ? getTranscationPath(p) : p;
+
   // TODO Exception
   if(fs.existsSync(path)) return;
 
-  console.log(`# creating directory: ${path}`);
+  printer.createDirectory(p);
   fs.mkdirSync(path);
 };
 
-const createEmptyFile = ([path, filename]) => {
+const createEmptyFile = (isTransaction, [p, filename]) => {
+  const path = isTransaction ? getTranscationPath(p) : p;
+
   // TODO Exception
   if(!fs.existsSync(path)) return;
 
-  console.log(`# creating empty file: ${path}/${filename}`);
+  printer.createEmptyFile(`${p}/${filename}`);
   fs.writeFileSync(`${path}/${filename}`, '');
 };
 
-const createTemplateFile = ([path, filename, extension, content]) => {
+const createTemplateFile = (isTransaction, [p, filename, extension, content]) => {
+  const path = isTransaction ? getTranscationPath(p) : p;
+
   // TODO Exception
   if(!fs.existsSync(path)) return;
 
-  console.log(`# creating .${extension} file: ${path}/${filename}.${extension}`);
+  printer.createTemplateFile(extension, `${p}/${filename}.${extension}`)
   fs.writeFileSync(`${path}/${filename}.${extension}`, content);
 };
 
@@ -49,19 +66,37 @@ const workQueue = [];
 const qPush = (work, ...params) => {
   switch(work) {
     case c.CREATE_DIR:
-      workQueue.push(() => createDir(params));
+      workQueue.push((isTransaction) => createDir(isTransaction, params));
       break;
     case c.CREATE_EMPTY_FILE:
-      workQueue.push(() => createEmptyFile(params));
+      workQueue.push((isTransaction) => createEmptyFile(isTransaction, params));
       break;
     case c.CREATE_TEMPLATE_FILE:
-      workQueue.push(() => createTemplateFile(params));
+      workQueue.push((isTransaction) => createTemplateFile(isTransaction, params));
       break;
   }
 };
 
-const qExec = () => {
-  workQueue.forEach(work => work());
+const qExec = (isTransaction) => {
+  if(isTransaction) {
+    try {
+      fs.mkdirSync(`${__dirname}/_transaction${getCurrentPath()}`, {recursive: true});
+
+      workQueue.forEach(work => work(true));
+      
+      // If there was no error during transaction,
+      // All files in _transaction is moved to target directory.
+      cp.execSync(`cp -r ${__dirname}/_transaction${getUserRootPath()}/* ${getUserRootPath()}/`);
+
+      printer.success();
+    } catch(err) {
+      console.log(err);
+    } finally {
+      fs.rmSync(`${__dirname}/_transaction`, {recursive: true});
+    }
+  } else {
+    workQueue.forEach(work => work(false));
+  }
 };
 
 module.exports = {
