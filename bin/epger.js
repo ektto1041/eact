@@ -1,6 +1,7 @@
 #! /usr/bin/env node
 const {program} = require('commander');
 const { commandEpger } = require('./commandEpger.js');
+const { InvalidCommandError, UnknownError } = require('./errors.js');
 const {linearEpger} = require('./linearEpger.js');
 const printer = require('./printer.js');
 
@@ -13,11 +14,20 @@ program
   printer.introduce();
 
   const linearOption = opts.linear;
-  if(linearOption) linearEpger(linearOption);
-  else {
-    const isTransaction = opts.transaction;
-    commandEpger(isTransaction);
+  try {
+    if(linearOption) linearEpger(linearOption);
+    else {
+      const isTransaction = opts.transaction;
+      commandEpger(isTransaction);
+    }
+  } catch(err) {
+    if(err instanceof InvalidCommandError) {
+      printer.error(err);
+    } else if(err instanceof UnknownError) {
+      printer.unknownError(err);
+    }
   }
+  
 });
 
 program.parse();

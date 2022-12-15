@@ -1,3 +1,4 @@
+const { InvalidCommandError } = require('./errors.js');
 const {getCurrentPath, qPush, qExec, c, getTemplate} = require('./fileHandler.js');
 
 const linearEpger = (args) => {
@@ -87,6 +88,8 @@ const linearEpger = (args) => {
       }
     }
   }
+
+  if(isParams) throw new InvalidCommandError('create file with parameter must be cloesd');
 
   qExec(true);
 };

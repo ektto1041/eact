@@ -1,7 +1,5 @@
 const printer = require("./printer");
 
-
-
 const commandEpger = (isTransaction) => {
   const directoryQueue = getCurrentPath().split('/');
 

@@ -39,5 +39,19 @@ module.exports = {
     console.log('#                                           #');
     console.log('#===========================================#');
     console.log();
+  },
+  error: (err) => {
+    console.log();
+    console.log(`# ${chalk.red('ERROR: ' + err.name)}`);
+    console.log(`# ${chalk.red(err.message)}`);
+    console.log();
+  },
+  unknownError: (err) => {
+    console.log();
+    console.log(`# ${chalk.red('ERROR: ' + err.name)}`);
+    console.log(`# ${chalk.red(err.message)}`);
+    console.log(`# ${chalk.red('If you have some times, please let me know about this unknown error.')}`);
+    console.log(`# ${chalk.red('Visit: https://github.com/ektto1041/epger/issues')}`);
+    console.log();
   }
 }
